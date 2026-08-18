@@ -9,6 +9,10 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800;900&display=swap" rel="stylesheet">
   
   <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
     :root {
       --ink: #080807;
       --charcoal: #12110f;
@@ -110,7 +114,13 @@
     .music-pulse { animation: pulseGold 2s infinite; }
     @keyframes pulseGold {
       0%, 100% { box-shadow: 0 0 0 0 rgba(217, 173, 84, .4); }
-      50% { box-shadow: 0 0 0 8px rgba(217, 173, 84, 0); }
+      50% { box-shadow: 0 0 0 10px rgba(217, 173, 84, 0); }
+    }
+
+    .float-pulse { animation: pulseGreen 2.5s infinite; }
+    @keyframes pulseGreen {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, .5); }
+      50% { box-shadow: 0 0 0 12px rgba(37, 211, 102, 0); }
     }
 
     input, select, textarea {
@@ -131,6 +141,16 @@
 <body style="background: rgb(8, 8, 7);">
   <!-- Archivo de Audio local -->
   <audio id="mi-cancion" src="Feliz Cumple Perri.m4a" loop></audio>
+
+  <!-- Botones Flotantes Permanentes -->
+  <a href="#rsvp-form" title="Confirmar Asistencia" class="float-pulse fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-3 text-white font-bold shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95">
+    <i data-lucide="message-circle" class="h-6 w-6"></i>
+    <span class="hidden sm:inline text-xs uppercase tracking-wider">Confirmar RSVP</span>
+  </a>
+
+  <button id="floating-music-btn" type="button" title="Reproducir / Pausar Música" class="fixed bottom-6 left-6 z-50 flex h-12 w-12 items-center justify-center rounded-full border border-[#d9ad54] bg-[#12110f]/90 text-[#f7dc94] shadow-2xl backdrop-blur-md transition-all duration-300 hover:scale-110 active:scale-95">
+    <i data-lucide="music-2" class="h-5 w-5"></i>
+  </button>
 
   <div class="invitation-shell w-full">
    <header class="w-full px-5 pt-7 sm:px-8">
@@ -255,14 +275,14 @@
      </section>
 
      <!-- Formulario RSVP con WhatsApp -->
-     <section class="mx-auto mt-12 max-w-3xl rounded-[2rem] border border-[#d9ad54]/55 bg-[#12100d]/90 px-6 py-9 sm:px-10">
+     <section id="rsvp-form" class="mx-auto mt-12 max-w-3xl rounded-[2rem] border border-[#d9ad54]/55 bg-[#12100d]/90 px-6 py-9 sm:px-10">
       <div class="text-center">
        <p class="text-xs font-bold uppercase tracking-[.2em] text-[#d9ad54]">RSVP</p>
        <h2 class="display-face mt-2 text-2xl font-bold text-[#fff6df]">Confirmá tu asistencia</h2>
        <p class="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-[#cbbf9e]">Tu respuesta me ayuda a preparar una noche perfecta. ¡Espero brindar con vos!</p>
       </div>
 
-      <form id="rsvp-form" class="mt-7 grid gap-5">
+      <form id="rsvp-form-element" class="mt-7 grid gap-5">
        <div>
         <label for="nombre" class="mb-2 block text-sm font-semibold text-[#fff6df]">Tu nombre</label> 
         <input id="nombre" name="nombre" type="text" required class="rounded-xl px-4 py-3 text-sm placeholder:text-[#9f9479]" placeholder="Escribí tu nombre completo">
@@ -323,21 +343,27 @@
     // 2. Control del Reproductor de Música
     const audio = document.getElementById("mi-cancion");
     const musicBtn = document.getElementById("music-button");
+    const floatingMusicBtn = document.getElementById("floating-music-btn");
     const muteBtn = document.getElementById("mute-button");
 
-    musicBtn.addEventListener("click", () => {
+    function toggleMusic() {
       if (audio.paused) {
         audio.play();
         document.getElementById("music-play-label").classList.add("hidden");
         document.getElementById("music-stop-label").classList.remove("hidden");
         document.getElementById("music-disc").classList.add("music-pulse");
+        floatingMusicBtn.classList.add("music-pulse");
       } else {
         audio.pause();
         document.getElementById("music-play-label").classList.remove("hidden");
         document.getElementById("music-stop-label").classList.add("hidden");
         document.getElementById("music-disc").classList.remove("music-pulse");
+        floatingMusicBtn.classList.remove("music-pulse");
       }
-    });
+    }
+
+    musicBtn.addEventListener("click", toggleMusic);
+    floatingMusicBtn.addEventListener("click", toggleMusic);
 
     muteBtn.addEventListener("click", () => {
       audio.muted = !audio.muted;
@@ -346,7 +372,7 @@
     });
 
     // 3. Envío de Confirmación a WhatsApp
-    const rsvpForm = document.getElementById("rsvp-form");
+    const rsvpForm = document.getElementById("rsvp-form-element");
     rsvpForm.addEventListener("submit", (e) => {
       e.preventDefault();
 
