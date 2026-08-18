@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invitación 18 Años - Uziel Del Valle</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --ink: #080807;
+      --charcoal: #12110f;
+      --gold: #d9ad54;
+      --gold-light: #f7dc94;
+      --cream: #fff6df;
+      --muted: #cbbf9e;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: "DM Sans", sans-serif;
+      background-color: var(--ink);
+      color: var(--cream);
+    }
+
+    .invitation-shell {
+      width: 100%;
+      min-height: 100vh;
+      overflow: hidden;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .invitation-shell::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(circle at 15% 5%, rgba(216, 173, 84, .22), transparent 24rem),
+        radial-gradient(circle at 83% 30%, rgba(157, 98, 26, .22), transparent 21rem),
+        linear-gradient(135deg, #090908 0%, #18130d 48%, #080807 100%);
+    }
+
+    .invitation-shell::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      opacity: .22;
+      pointer-events: none;
+      background-image: radial-gradient(rgba(247, 220, 148, .45) .65px, transparent .65px);
+      background-size: 17px 17px;
+      mask-image: linear-gradient(to bottom, black, transparent 80%);
+    }
+
+    .gold-rule {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #d9ad54, #fff0b6, #d9ad54, transparent);
+    }
+
+    .display-face { font-family: "Playfair Display", serif; }
+
+    .main-card {
+      background: linear-gradient(145deg, rgba(24, 22, 18, .94), rgba(8, 8, 7, .98));
+      border: 1px solid rgba(217, 173, 84, .62);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, .55), inset 0 0 0 5px rgba(217, 173, 84, .055);
+    }
+
+    .main-card::before, .main-card::after {
+      content: "✦";
+      position: absolute;
+      color: #f7dc94;
+      font-size: 1.1rem;
+    }
+    .main-card::before { top: 1rem; left: 1.1rem; }
+    .main-card::after { right: 1.1rem; bottom: 1rem; }
+
+    .bottle-frame {
+      background: linear-gradient(145deg, #312311, #100f0c 50%, #68441b);
+      border: 1px solid rgba(247, 220, 148, .75);
+      box-shadow: 0 18px 35px rgba(0, 0, 0, .38);
+    }
+
+    .count-chip {
+      background: rgba(217, 173, 84, .09);
+      border: 1px solid rgba(217, 173, 84, .38);
+      min-width: 65px;
+    }
+
+    .gold-button {
+      background: linear-gradient(135deg, #f7dc94, #c79235 55%, #f4cc70);
+      color: #171107;
+      box-shadow: 0 8px 22px rgba(195, 142, 43, .24);
+      transition: transform .2s ease, filter .2s ease;
+    }
+    .gold-button:hover { transform: translateY(-2px); filter: brightness(1.06); }
+
+    .ghost-button {
+      border: 1px solid rgba(247, 220, 148, .6);
+      color: #f7dc94;
+      background: rgba(255, 246, 223, .04);
+      transition: background .2s ease, transform .2s ease;
+    }
+    .ghost-button:hover { background: rgba(217, 173, 84, .16); transform: translateY(-2px); }
+
+    .music-pulse { animation: pulseGold 2s infinite; }
+    @keyframes pulseGold {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(217, 173, 84, .4); }
+      50% { box-shadow: 0 0 0 8px rgba(217, 173, 84, 0); }
+    }
+
+    input, select, textarea {
+      background: rgba(255, 246, 223, .05);
+      border: 1px solid rgba(217, 173, 84, .34);
+      color: var(--cream);
+      outline: none;
+      width: 100%;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: #f7dc94;
+      box-shadow: 0 0 0 3px rgba(217, 173, 84, .14);
+    }
+    select option { color: #171107; background: #fff6df; }
+  </style>
+</head>
+
+<body style="background: rgb(8, 8, 7);">
+  <!-- Archivo de Audio local -->
+  <audio id="mi-cancion" src="pinta.m4a" loop></audio>
+
+  <div class="invitation-shell w-full">
+   <header class="w-full px-5 pt-7 sm:px-8">
+    <div class="mx-auto flex max-w-5xl items-center justify-between">
+     <div class="flex items-center gap-3">
+      <span class="flex h-10 w-10 items-center justify-center rounded-full border border-[#d9ad54] text-lg text-[#f7dc94]">18</span>
+      <span class="text-xs font-semibold uppercase tracking-[.24em] text-[#f7dc94]">Aged to Perfection</span>
+     </div>
+     <button id="music-button" type="button" class="ghost-button flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[.12em] focus:outline-none focus:ring-2 focus:ring-[#f7dc94]">
+      <i data-lucide="music-2" class="h-4 w-4"></i>
+      <span id="music-play-label">Encender música</span>
+      <span id="music-stop-label" class="hidden">Detener música</span>
+     </button>
+    </div>
+   </header>
+
+   <main class="w-full px-5 pb-14 pt-10 sm:px-8 sm:pt-14">
+    <section class="mx-auto max-w-5xl">
+     <!-- Tarjeta Principal -->
+     <div class="main-card relative overflow-hidden rounded-[2rem] px-5 py-10 sm:px-10 md:px-14 md:py-14">
+      <div class="relative mx-auto max-w-3xl text-center">
+       <p class="display-face text-sm italic tracking-[.2em] text-[#f7dc94]">Te invito a celebrar</p>
+       <h1 class="display-face mt-2 font-black text-4xl sm:text-5xl tracking-wide text-[#fff6df]">
+         UZIEL DEL VALLE
+       </h1>
+       <p class="display-face mt-2 text-xl italic font-semibold text-[#f7dc94]">
+         ✦ MIS 18 AÑOS ✦
+       </p>
+       
+       <div class="gold-rule mx-auto my-7 max-w-xs"></div>
+
+       <div class="grid items-center gap-8 md:grid-cols-[1fr_220px_1fr]">
+        <!-- Fecha y Hora -->
+        <div class="order-2 space-y-3 text-center md:order-1 md:text-right">
+         <p class="text-xs font-bold uppercase tracking-[.18em] text-[#d9ad54]">Fecha</p>
+         <p class="display-face text-lg text-[#fff6df]">Sábado 12 de septiembre, 2026</p>
+         <p class="pt-2 text-xs font-bold uppercase tracking-[.18em] text-[#d9ad54]">Hora</p>
+         <p class="display-face text-lg text-[#fff6df]">21:00 hs en adelante</p>
+        </div>
+
+        <!-- Imagen de Botella/Brindis -->
+        <div class="order-1 flex justify-center md:order-2">
+         <div class="bottle-frame h-[225px] w-[190px] overflow-hidden rounded-[5rem_5rem_2rem_2rem] p-2">
+          <img class="h-full w-full rounded-[4.5rem_4.5rem_1.5rem_1.5rem] object-cover" src="https://images.pexels.com/photos/13947435/pexels-photo-13947435.jpeg" alt="Brindis 18 años">
+         </div>
+        </div>
+
+        <!-- Lugar y Dirección -->
+        <div class="order-3 space-y-3 text-center md:text-left">
+         <p class="text-xs font-bold uppercase tracking-[.18em] text-[#d9ad54]">Lugar</p>
+         <p class="display-face text-lg text-[#fff6df]">Pasaje Corralito</p>
+         <p class="pt-2 text-xs font-bold uppercase tracking-[.18em] text-[#d9ad54]">Ubicación</p>
+         <p class="text-sm text-[#cbbf9e]">Pilcaniyeu, Río Negro</p>
+        </div>
+       </div>
+
+       <p class="display-face mx-auto mt-9 max-w-xl text-lg leading-relaxed italic text-[#fff6df]">Te invito a celebrar conmigo una noche inolvidable. Brindemos por los nuevos comienzos y por todo lo que viene.</p>
+      </div>
+     </div>
+
+     <!-- Cuenta Regresiva -->
+     <section class="mx-auto mt-8 max-w-3xl text-center">
+      <p class="text-xs font-bold uppercase tracking-[.2em] text-[#d9ad54]">La cuenta regresiva comenzó</p>
+      <h2 class="display-face mt-2 text-2xl font-bold text-[#fff6df]">Faltan muy pocos brindis</h2>
+      <div id="countdown" class="mt-5 flex justify-center gap-2 sm:gap-4">
+       <div class="count-chip rounded-xl px-3 py-3">
+        <p id="days" class="display-face text-2xl font-bold text-[#f7dc94]">000</p>
+        <p class="mt-1 text-[10px] font-bold uppercase tracking-[.15em] text-[#cbbf9e]">Días</p>
+       </div>
+       <div class="count-chip rounded-xl px-3 py-3">
+        <p id="hours" class="display-face text-2xl font-bold text-[#f7dc94]">00</p>
+        <p class="mt-1 text-[10px] font-bold uppercase tracking-[.15em] text-[#cbbf9e]">Horas</p>
+       </div>
+       <div class="count-chip rounded-xl px-3 py-3">
+        <p id="minutes" class="display-face text-2xl font-bold text-[#f7dc94]">00</p>
+        <p class="mt-1 text-[10px] font-bold uppercase tracking-[.15em] text-[#cbbf9e]">Minutos</p>
+       </div>
+       <div class="count-chip rounded-xl px-3 py-3">
+        <p id="seconds" class="display-face text-2xl font-bold text-[#f7dc94]">00</p>
+        <p class="mt-1 text-[10px] font-bold uppercase tracking-[.15em] text-[#cbbf9e]">Segundos</p>
+       </div>
+      </div>
+      <p id="countdown-finished" class="mt-4 hidden text-sm font-semibold text-[#f7dc94]">¡La celebración ya comenzó!</p>
+     </section>
+
+     <!-- Tarjetas de Información Secundarias -->
+     <section class="mx-auto mt-12 grid max-w-4xl gap-5 md:grid-cols-2">
+      <!-- Tarjeta Mapa -->
+      <article class="rounded-3xl border border-[#d9ad54]/40 bg-[#17140f]/85 p-7">
+       <div class="flex items-start gap-4">
+        <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#d9ad54]/50 bg-[#d9ad54]/10 text-[#f7dc94]"> 
+          <i data-lucide="map-pin" class="h-5 w-5"></i> 
+        </span>
+        <div>
+         <h2 class="display-face font-bold text-2xl text-[#fff6df]">Cómo llegar</h2>
+         <p class="mt-2 text-sm leading-relaxed text-[#cbbf9e]">Prepará tu mejor look y vení a festejar a Pasaje Corralito, Pilcaniyeu.</p>
+         <a href="https://maps.google.com/?q=Pasaje+Corralito+Pilcaniyeu+Rio+Negro+Argentina" target="_blank" rel="noopener noreferrer" class="gold-button mt-5 inline-flex items-center gap-2 rounded-full px-5 py-3 text-xs font-bold uppercase tracking-[.13em]"> 
+           <i data-lucide="navigation" class="h-4 w-4"></i> 
+           <span>Ver ubicación</span> 
+         </a>
+        </div>
+       </div>
+      </article>
+
+      <!-- Tarjeta Música -->
+      <article class="rounded-3xl border border-[#d9ad54]/40 bg-[#17140f]/85 p-7">
+       <div class="flex items-start gap-4">
+        <span id="music-disc" class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#d9ad54]/50 bg-[#d9ad54]/10 text-[#f7dc94]"> 
+          <i data-lucide="disc-3" class="h-5 w-5"></i> 
+        </span>
+        <div class="min-w-0">
+         <h2 class="display-face font-bold text-2xl text-[#fff6df]">Música de fondo</h2>
+         <p class="mt-2 text-sm leading-relaxed text-[#cbbf9e]">Sonando: Pinta - L-Gante x Bizarrap ft. Pablo Lescano.</p>
+         <button id="mute-button" type="button" class="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[.13em] text-[#f7dc94] underline decoration-[#d9ad54]/60 underline-offset-4 focus:outline-none"> 
+           <i data-lucide="volume-2" class="h-4 w-4"></i> 
+           <span id="mute-label">Silenciar</span> 
+           <span id="unmute-label" class="hidden">Activar sonido</span> 
+         </button>
+        </div>
+       </div>
+      </article>
+     </section>
+
+     <!-- Formulario RSVP con WhatsApp -->
+     <section class="mx-auto mt-12 max-w-3xl rounded-[2rem] border border-[#d9ad54]/55 bg-[#12100d]/90 px-6 py-9 sm:px-10">
+      <div class="text-center">
+       <p class="text-xs font-bold uppercase tracking-[.2em] text-[#d9ad54]">RSVP</p>
+       <h2 class="display-face mt-2 text-2xl font-bold text-[#fff6df]">Confirmá tu asistencia</h2>
+       <p class="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-[#cbbf9e]">Tu respuesta me ayuda a preparar una noche perfecta. ¡Espero brindar con vos!</p>
+      </div>
+
+      <form id="rsvp-form" class="mt-7 grid gap-5">
+       <div>
+        <label for="nombre" class="mb-2 block text-sm font-semibold text-[#fff6df]">Tu nombre</label> 
+        <input id="nombre" name="nombre" type="text" required class="rounded-xl px-4 py-3 text-sm placeholder:text-[#9f9479]" placeholder="Escribí tu nombre completo">
+       </div>
+       <div>
+        <label for="asistencia" class="mb-2 block text-sm font-semibold text-[#fff6df]">¿Venís a celebrar?</label> 
+        <select id="asistencia" name="asistencia" required class="rounded-xl px-4 py-3 text-sm"> 
+          <option value="">Elegí una opción</option> 
+          <option value="Sí, voy a brindar">Sí, voy a brindar</option> 
+          <option value="No puedo asistir">No puedo asistir</option> 
+        </select>
+       </div>
+       <div>
+        <label for="mensaje" class="mb-2 block text-sm font-semibold text-[#fff6df]">Dejá un mensaje (opcional)</label> 
+        <textarea id="mensaje" name="mensaje" rows="3" class="rounded-xl px-4 py-3 text-sm placeholder:text-[#9f9479]" placeholder="Un saludo o deseo para los 18..."></textarea>
+       </div>
+
+       <button type="submit" class="gold-button flex w-full items-center justify-center gap-3 rounded-xl px-5 py-4 text-sm font-bold uppercase tracking-[.15em]"> 
+         <i data-lucide="message-circle" class="h-5 w-5"></i> 
+         <span>Confirmar por WhatsApp</span> 
+       </button>
+      </form>
+     </section>
+    </section>
+   </main>
+
+   <footer class="w-full px-5 pb-8 text-center">
+    <div class="gold-rule mx-auto max-w-md"></div>
+    <p class="display-face mt-5 text-sm italic text-[#cbbf9e]">Los mejores momentos merecen un gran brindis. ✦</p>
+   </footer>
+  </div>
+
+  <!-- Scripts Interactivos -->
+  <script>
+    // 1. Configuración de la Fecha del Evento (12 de Septiembre de 2026 a las 21:00 hs)
+    const eventDate = new Date("2026-09-12T21:00:00-03:00");
+
+    function updateCountdown() {
+      const diff = eventDate.getTime() - Date.now();
+      const finished = diff <= 0;
+      const remaining = Math.max(diff, 0);
+
+      const days = Math.floor(remaining / 86400000);
+      const hours = Math.floor((remaining % 86400000) / 3600000);
+      const minutes = Math.floor((remaining % 3600000) / 60000);
+      const seconds = Math.floor((remaining % 60000) / 1000);
+
+      document.getElementById("days").textContent = String(days).padStart(3, "0");
+      document.getElementById("hours").textContent = String(hours).padStart(2, "0");
+      document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
+      document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
+      document.getElementById("countdown-finished").classList.toggle("hidden", !finished);
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // 2. Control del Reproductor de Música
+    const audio = document.getElementById("mi-cancion");
+    const musicBtn = document.getElementById("music-button");
+    const muteBtn = document.getElementById("mute-button");
+
+    musicBtn.addEventListener("click", () => {
+      if (audio.paused) {
+        audio.play();
+        document.getElementById("music-play-label").classList.add("hidden");
+        document.getElementById("music-stop-label").classList.remove("hidden");
+        document.getElementById("music-disc").classList.add("music-pulse");
+      } else {
+        audio.pause();
+        document.getElementById("music-play-label").classList.remove("hidden");
+        document.getElementById("music-stop-label").classList.add("hidden");
+        document.getElementById("music-disc").classList.remove("music-pulse");
+      }
+    });
+
+    muteBtn.addEventListener("click", () => {
+      audio.muted = !audio.muted;
+      document.getElementById("mute-label").classList.toggle("hidden", audio.muted);
+      document.getElementById("unmute-label").classList.toggle("hidden", !audio.muted);
+    });
+
+    // 3. Envío de Confirmación a WhatsApp
+    const rsvpForm = document.getElementById("rsvp-form");
+    rsvpForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const telefonoUziel = "5492944308047";
+      const nombre = document.getElementById("nombre").value;
+      const asistencia = document.getElementById("asistencia").value;
+      const mensaje = document.getElementById("mensaje").value;
+
+      let texto = `¡Hola Uziel! Mi nombre es *${nombre}*.\n`;
+      texto += `*Confirmación:* ${asistencia}\n`;
+      if (mensaje.trim() !== "") {
+        texto += `*Mensaje:* ${mensaje}`;
+      }
+
+      const url = `https://wa.me/${telefonoUziel}?text=${encodeURIComponent(texto)}`;
+      window.open(url, "_blank");
+    });
+
+    // Cargar los Iconos
+    lucide.createIcons();
+  </script>
+</body>
+</html>
